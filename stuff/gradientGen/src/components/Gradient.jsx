@@ -7,22 +7,27 @@ export default function Gradient(){
         angle: "0",
     });
 
-    const [color1, setColor1] = React.useState([]);
-    const [color2, setColor2] = React.useState([]);
-    const [angle, setAngle] = React.useState([]);
+    // const [color1, setColor1] = React.useState([]); don't need
+    // const [color2, setColor2] = React.useState([]); b/c I have this
+    // const [angle, setAngle] = React.useState([]); for lines 4-8
     // commit test
 
     function handleChange(event){
         const {name,value} = event.target;
-        setGradient(gradient => ({
-            ...gradient, 
+        setGradient(prevGradient => ({
+            ...prevGradient, 
             [name]:value,
-         [color2]:value,
-         [angle]:value,
+   
     }))
 }
 
+    const gradientBackground = {
+        backgroundImage: `linear-gradient(${gradient.angle}deg, ${gradient.color1}, ${gradient.color2})`
+
+    }
+
 return (
+    <>
     <div className="form">
         <input type="color" 
         className="form--color"
@@ -45,11 +50,20 @@ return (
         <textarea 
         className="form--result"
         name="gradient"
-        value={gradient.value}
-        onChange={handleChange}/>
+        readOnly
+        value={
+            `background: linear-gradient(${gradient.angle}deg, ${gradient.color1}, ${gradient.color2});     -moz-background: linear-gradient(${gradient.angle}deg, ${gradient.color1}, ${gradient.color2}); -webkit: linear-gradient(${gradient.angle}deg, ${gradient.color1}, ${gradient.color2})`
+        }
+        />
 
     </div>
-    
+    {/* <div style={{backgroundImage: "linear-gradient(red, yellow)"}}> 
+        test
+    </div> */}
+    <div style={gradientBackground}> 
+        Your Gradient Result
+    </div>
+    </>
 )
 }
 
