@@ -1,0 +1,24 @@
+Need:
+- Must have 3 input fields:
+    - Img url field (A url to an image of an ugly thing)
+    - Title field (The title of the image that the user wants to give)
+    - Description field (why the user thinks it is ugly)
+- Must have *Submit* button that submits the data
+- Must display a list of posted images with their associated titles and descriptions
+- Must store the array of ugly thing objects in the Context store
+- Must be able to delete an ugly thing
+- Must be able to edit an ugly thing
+- Must make all requests via the [Ugly Things API](https://coursework.vschool.io/ugly-things-api-documentation/)
+
+api to use: https://api.vschool.io/emilywbowen/thing
+
+
+Components: 
+SubButt - function that handles the submit button
+Thing - function that returns the entries
+UglyForm - function that holds the input fields for a form
+    needs 3 input fields: title, imgUrl, and description (must be cased and written as such for correct data transfer)
+    I think this is also where the submit button with SubButt context would go
+    Need edit and delete options (look back at meme generator?)
+        Do I need a component similar to SubButt to handle the edit and delete?
+uglyThingData - where the data is stored (do I need this?)
