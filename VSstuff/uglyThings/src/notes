@@ -22,3 +22,4 @@ UglyForm - function that holds the input fields for a form
     Need edit and delete options (look back at meme generator?)
         Do I need a component similar to SubButt to handle the edit and delete?
 uglyThingData - where the data is stored (do I need this?)
+ContextProvider - provides the context, duh
