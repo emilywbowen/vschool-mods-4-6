@@ -1,12 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from 'App'
+import App from "./App"
+import { ContextProvider } from './components/ContextProvider';
+
 
 const container = document.getElementById('root')
 
 const root = ReactDOM.createRoot(container)
 
-root.render(<App />)
+root.render(
+    <ContextProvider>
+        <App />
+    </ContextProvider>)
 
 
 // What it looked like on themeContext: 

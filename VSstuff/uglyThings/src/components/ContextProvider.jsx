@@ -1,10 +1,11 @@
-import React, { createContext } from "react";
+import React, { createContext, useEffect, useState } from "react";
 export const Context = createContext();
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
+// import UglyForm from "./UglyForm";
 
 
-export function ContextProvider() {
+export function ContextProvider(props) {
 
 // function to set state
     const [formData, setFormData] = useState({
@@ -12,28 +13,31 @@ export function ContextProvider() {
         description: "",
         imgUrl: ""
     });
-
     const [allThings, setAllThings] = useState([]);
-    // const [saveThings, setSaveThings] = useState([]);
     const [isEditing, setIsEditing] = useState(false);
-    const [editingId, setEditingId] = useState("");
+    const [editingId, setEditingId] = useState(null);
     
 
 // use effect to get the api
-    useEffect(() => {
+    function getUglyThings() {
     axios.get("https://api.vschool.io/emilywbowen/thing")
         .then((response) => {
+            console.log(response.data)
             setAllThings(response.data); 
         })
         .catch((error) => {
             console.log(error);
         });
-    }, []);
+    };
+
+    useEffect(() => {
+        getUglyThings()
+    }, [])
 
 // function to handle the submit
    function handleChange(event) {
         const { name, value } = event.target;
-        setThing(prevThing => ({
+        setFormData(prevThing => ({ 
         ...prevThing,
         [name]: value
      }));
@@ -41,7 +45,7 @@ export function ContextProvider() {
 //function to handle edit/delete
     function saveTheThing() {
         if(isEditing){
-        setSaveThings(prevSaveThing => prevSaveThing.map((savedThing) =>
+        setAllThings(prevSaveThing => prevSaveThing.map((savedThing) =>
             //do I also change "setSaveThings" to "setAllThings"?
         savedThing.id === editingId ? { ...savedThing, title: thing.title, description: thing.description, imgUrl: thing.imgUrl} : savedThing
     ));
@@ -59,8 +63,8 @@ export function ContextProvider() {
                 //use setAllThings in this function instead bc saveThings isn't necessary as state
 
     }
-    setThing(prevThing => ({
-        ...prevThing,
+    setFormData(prevData => ({
+        ...prevData,
         title: "",
         description: "",
         imgUrl: "",
@@ -76,65 +80,12 @@ export function ContextProvider() {
 
    //return statement goes below
    return (
-    <main>
-        <div className="form">
-            <input 
-                type="text"
-                placeholder="Title"
-                className="form--input"
-                name="title"
-                value={thing.title}
-                onChange={handleChange}
-                />
+    <div>
+        <Context.Provider value={{allThings, setAllThings, isEditing, setIsEditing, formData, setFormData, editingId, setEditingId, handleChange, saveTheThing, editThing}}>
+            {props.children}
+        </Context.Provider>
 
-                <input 
-                type="text"
-                placeholder="Description"
-                className="form--input"
-                name="description"
-                value={thing.description}
-                onChange={handleChange}
-                />
-
-                <input 
-                type="text"
-                placeholder="Image URL"
-                className="form--input"
-                name="imgUrl"
-                value={thing.imgUrl}
-                onChange={handleChange}
-                />
-
-                <button 
-                    className="form--button"
-                    onClick={saveTheThing}
-                    >
-                        {isEditing ? "Save Changes" : "Save Thing"}
-                    </button>
-        </div>
-
-        <div className="thing">
-            <img src={thing.data} className="thing--image" alt="thing"/>
-            <h2 className="thing--text title">{thing.title}</h2>
-            <h2 className="thing--text description">{thing.description}</h2>
-            <h2 className="thing--text imgUrl">{thing.imgUrl}</h2>
-        </div>
-
-        <div className="savedThings">
-            {saveThings.map((savedThing)=> (
-                <div key={savedThing._id} className="thing-item">
-                    <img src={savedThing.data}
-                    className="thing--image" alt="Saved Thing"/>
-                    <h2 className="thing--text title">{savedThing.title}</h2>
-                    <h2 className="thing--text description">{savedThing.description}</h2>
-                    <h2 className="thing--text imgUrl">{savedThing.imgUrl}</h2>
-                    <button onClick={() => editThing(savedThing._id)}>Edit</button>
-                    </div>
-            )
-            )}
-        </div>
-
-    </main>
+    </div>
    )
 }
 

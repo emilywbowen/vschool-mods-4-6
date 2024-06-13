@@ -1,12 +1,20 @@
 import React from 'react';
-// import Footer from './Components/Footer'; update
-// import Header from './Components/Header';
-// import Navbar from './Components/Navbar';
-// import Button from './Components/Button';  
+import Thing from "./components/Thing";
+import UglyForm from './components/UglyForm';
+// import uglyThingData from "./components/uglyThingData";
+import { ContextProvider } from './components/ContextProvider';
 import './App.css';
-// import { ThemeProvider } from './Components/ThemeProvider'; change
 
+function App(){
+    return(
+        <ContextProvider>
+            <Thing />
+            <UglyForm />
+        </ContextProvider>
+    )
+}
 
+export default App
 
 
 

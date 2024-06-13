@@ -14,7 +14,7 @@ api to use: https://api.vschool.io/emilywbowen/thing
 
 
 Components: 
-SubButt - function that handles the submit button
+SubButt - function that handles the submit button ******don't need b/c butt is on form*****
 Thing - function that returns the entries
 UglyForm - function that holds the input fields for a form
     needs 3 input fields: title, imgUrl, and description (must be cased and written as such for correct data transfer)
