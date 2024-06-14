@@ -1,0 +1,45 @@
+*{
+    background-color: darkgoldenrod;
+}
+
+.form {
+    background-color: darkcyan;
+    height: 100px;
+    align-items:center;
+}
+
+.form--button{
+    background-color: blue;
+    color:aliceblue;
+    align-items: center;
+
+}
+
+.form--input{
+    background-color: blue;
+    color: aliceblue;
+    align-items: center;
+
+}
+
+.thing{
+    background-color: darkorchid;
+
+}
+
+.thing--textTitle {
+    background-color: chartreuse;
+}
+
+.thing--textDescription {
+    background-color: coral;
+}
+
+.thing--image {
+    background-color: deeppink;
+}
+
+.edit {
+    background-color: rgb(129, 4, 4);
+    color: cadetblue;
+}

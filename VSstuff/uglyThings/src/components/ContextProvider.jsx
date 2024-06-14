@@ -31,16 +31,17 @@ export function ContextProvider(props) {
     };
 
     useEffect(() => {
-        getUglyThings()
-    }, [])
+        getUglyThings();
+    }, []);
 
 // function to handle the submit
    function handleChange(event) {
         const { name, value } = event.target;
-        setFormData(prevThing => ({ 
-        ...prevThing,
+        setFormData(prevData => ({ 
+        ...prevData,
         [name]: value
      }));
+    }
 
 //function to handle edit/delete
     function saveTheThing() {
@@ -70,18 +71,20 @@ export function ContextProvider(props) {
         imgUrl: "",
     }));
     }
+    
     function editThing(id) {
         const thingToEdit = saveThings.find(t._id === _id);
         setThing({title: thingToEdit.title, description: thingToEdit.description, imgUrl: thingToEdit.imgUrl});
         setIsEditing(true);
         setEditingId(_id);
     }
-   }
+
 
    //return statement goes below
    return (
     <div>
-        <Context.Provider value={{allThings, setAllThings, isEditing, setIsEditing, formData, setFormData, editingId, setEditingId, handleChange, saveTheThing, editThing}}>
+        <Context.Provider value={{
+            allThings, setAllThings, isEditing, setIsEditing, formData, setFormData, editingId, setEditingId, handleChange, saveTheThing, editThing}}>
             {props.children}
         </Context.Provider>
 

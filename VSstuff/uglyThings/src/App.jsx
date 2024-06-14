@@ -8,28 +8,12 @@ import './App.css';
 function App(){
     return(
         <ContextProvider>
-            <Thing />
             <UglyForm />
+            <Thing />
+         
         </ContextProvider>
     )
 }
 
 export default App
-
-
-
-// example from themeContext:
-
-// function App(props) {
-//   return (
-//     <ThemeProvider>
-//       <Navbar />
-//       <Header />
-//       <Button />
-//       <Footer />
-//     </ThemeProvider>
-//   );
-// }
-
-// export default App;
 

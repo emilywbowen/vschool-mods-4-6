@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 import { Context } from "./ContextProvider";  
 
 export default function UglyForm() {
-    const {formData, setFormData} = useContext(Context)
+    const {fallThings, setAllThings, isEditing, setIsEditing, formData, setFormData, editingId, setEditingId, handleChange, saveTheThing, editThing} = useContext(Context)
     //pass formdata from context
     return (
     <div>
@@ -12,7 +12,7 @@ export default function UglyForm() {
                 placeholder="Title"
                 className="form--input"
                 name="title"
-                value={thing.title}
+                value={formData.title}
                 onChange={handleChange}
                 />
 
@@ -21,7 +21,7 @@ export default function UglyForm() {
                 placeholder="Description"
                 className="form--input"
                 name="description"
-                value={thing.description}
+                value={formData.description}
                 onChange={handleChange}
                 />
 
@@ -30,7 +30,7 @@ export default function UglyForm() {
                 placeholder="Image URL"
                 className="form--input"
                 name="imgUrl"
-                value={thing.imgUrl}
+                value={formData.imgUrl}
                 onChange={handleChange}
                 />
 
