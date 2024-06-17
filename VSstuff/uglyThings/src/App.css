@@ -9,9 +9,10 @@
 }
 
 .form--button{
-    background-color: blue;
+    background-color: rgb(170, 54, 69);
     color:aliceblue;
     align-items: center;
+    font-size: larger;
 
 }
 
@@ -19,6 +20,7 @@
     background-color: blue;
     color: aliceblue;
     align-items: center;
+    font-size: larger;
 
 }
 
@@ -36,7 +38,9 @@
 }
 
 .thing--image {
-    background-color: deeppink;
+    /* background-color: deeppink; */
+    width: 15%;
+    height: 15%;
 }
 
 .edit {
