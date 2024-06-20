@@ -33,12 +33,22 @@ function sortByMultipleCriteria(people) {
 // first, sort by age (map.sort(people.age))
 // then, sort alphabetically (map.sort(people.name))
 // nested for loop??
-    let sortedPeople = people.sort((firstItem, secondItem) => firstItem.age - secondItem.age);
-    return sortedPeople
+    // let sortedPeople = people.sort((firstItem, secondItem) => firstItem.age - secondItem.age);
+    // return sortedPeople
+
+    return people.sort((a , b)=> {
+        if (a.age === b.age){
+            if(a.name < b.name)return -1
+            if(a.name > b.name)return 1
+            return 0
+        }
+        return a.age-b.age
+        
+    })
 }
 const people = [
 { name: 'Alice', age: 30 },
-{ name: 'Bob', age: 25 },
+{ name: 'Rob', age: 25 },
 { name: 'Charlie', age: 35 },
 { name: 'David', age: 25 },
 ];

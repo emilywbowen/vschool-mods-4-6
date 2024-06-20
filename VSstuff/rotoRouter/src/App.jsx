@@ -10,7 +10,7 @@ export default function App() {
 
   return (
     // Basic router set up <Router><Routes><Route>
-    <Router> 
+    <> 
       <nav style={{margin: 10}}>
         <Link to= "/" style= {{padding: 5}}>
         Home
@@ -29,7 +29,7 @@ export default function App() {
         <Route path="/services" element={<Services />}/>
       </Routes>
       
-    </Router>
+    </>
   )
 }
 
