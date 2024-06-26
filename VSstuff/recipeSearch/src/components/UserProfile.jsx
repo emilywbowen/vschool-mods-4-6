@@ -10,7 +10,6 @@ export default function UserProfile(){
 
             <h1>Your recipes are below!</h1>
 
-            {Save}
         </div>
     )
 }
