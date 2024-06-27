@@ -1,32 +1,32 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Context } from "./ContextProvider";
+import ContextProvider, { Context } from "./ContextProvider";
 import axios from "axios";
 
 
 export default function RecipeSearch(){
     
-    // const {randomRecipe,  
-    //     getRandomRecipe, 
-    //  } = useContext(Context);
+    const {randomRecipe,  
+        getRandomRecipe, 
+     } = useContext(Context);
 
         // recipe, setRecipe, setRandomRecipe, saveRecipe, setSaveRecipe, isEditing, setIsEditing, editingId, setEditingId,save, editRecipe
 
-        const [randomRecipe, setRandomRecipe] = useState([]);
+        // const [randomRecipe, setRandomRecipe] = useState([]);
         const [error, setError] = useState(null)
         const [loading, setLoading] = useState(true);
 
-        useEffect(() => {
-            function getRandomRecipe() {
-            axios.get("https://www.themealdb.com/api/json/v1/1/random.php")
-                .then((response) => { console.log(response.data); setRandomRecipe(response.data);
-                    setLoading(false)
-                })
-                .catch((error) => {
-                console.error('Error fetching the recipe:', error);
-                setError(error);
-                    setLoading(false)
-            }); }
-            getRandomRecipe(); }, [] )
+        // useEffect(() => {
+        //     function getRandomRecipe() {
+        //     axios.get("https://www.themealdb.com/api/json/v1/1/random.php")
+        //         .then((response) => { console.log(response.data); setRandomRecipe(response.data);
+        //             setLoading(false)
+        //         })
+        //         .catch((error) => {
+        //         console.error('Error fetching the recipe:', error);
+        //         setError(error);
+        //             setLoading(false)
+        //     }); }
+        //     getRandomRecipe(); }, [] )
             
             if (loading) { return <p>Loading...</p>; }
             if (error) { return <p>Error fetching recipe: {error.message}</p>;} // Show error message if there was an error
@@ -35,7 +35,7 @@ export default function RecipeSearch(){
 
     return(
 
-        <div>
+        <ContextProvider>
 
             {randomRecipe && randomRecipe.meals ? ( 
                 <div>
@@ -67,7 +67,7 @@ export default function RecipeSearch(){
             <h1>Intention: Returns a drop down to search by area, category, or protein. An additional button for random searches. Current:Only search by random until I can really dig deeper into the API and figure out how to get the data. </h1>
 
             <p>Bring in the context to show API result</p>
-        </div> 
+        </ContextProvider> 
 
         
     )

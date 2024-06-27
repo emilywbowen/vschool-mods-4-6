@@ -6,12 +6,17 @@ import Home from './components/Home'
 import RecipeSearch from "./components/RecipeSearch"
 import UserProfile from "./components/UserProfile"
 import NavBar from "./components/NavBar"
+import ContextProvider from './components/ContextProvider'
 
 
-export default function App() {
+export default function App(props) {
+
+//   const {randomRecipe,  
+//     getRandomRecipe, 
+//  } = useContext(Context);
 
   return (
-<>
+<ContextProvider>
 <nav style={{margin: 10}}>
       <Link to="/" style={{padding: 5}}> 
       Home 
@@ -34,7 +39,7 @@ export default function App() {
     <Route path='/user' element={<UserProfile />}/>
     <Route Path="/nav" element={<NavBar />}/>
   </Routes>
-</>
+</ContextProvider>
         
   )
 }

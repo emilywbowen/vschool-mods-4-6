@@ -18,37 +18,17 @@ export default function ContextProvider(props) {
     const [isEditing, setIsEditing] = useState(false);
     const [editingId, setEditingId] = useState(null);
 
-    // useEffect(() => {
-    //     function getRandomRecipe() {
-    //     axios.get("https://www.themealdb.com/api/json/v1/1/random.php")
-    //         .then((response) => { console.log(response.data); setRandomRecipe(response.data);
-    //         })
-    //         .catch((error) => {
-    //         console.error('Error fetching the recipe:', error);
-    //         setError(error);
-    //     }); }
-    //     getRandomRecipe(); }, [] ) 
+    useEffect(() => {
+        function getRandomRecipe() {
+        axios.get("https://www.themealdb.com/api/json/v1/1/random.php")
+            .then((response) => { console.log(response.data); setRandomRecipe(response.data);
+            })
+            .catch((error) => {
+            console.error('Error fetching the recipe:', error);
+            setError(error);
+        }); }
+        getRandomRecipe(); }, [] ) 
 
-    // function getRandomRecipe() {
-    //     axios.get("www.themealdb.com/api/json/v1/1/random.php")
-    //     .then((response) => {
-    //         console(response.data.meals)
-    //         setRandomRecipe(response.data.meals);
-    //         // or setRandomRecipe(response.data.data.meals)
-    //     })
-    //     .catch((error) => {
-    //         console.log(error);
-    //     })
-    // };
-
-    // const randomRecipe = () => {
-    //     const randomNumber = Math.floor(Math.random() * allRecipes.length);
-    //     const url = allRecipes[randomNumber].url;
-    //     setRecipe(prevRecipe => ({
-    //         ...prevRecipe,
-    //         recipeImage: url
-    //     }));
-    // }
 
     // function handleClick(event) {
     //     const {name, value} = event.target;
@@ -102,8 +82,7 @@ export default function ContextProvider(props) {
             isEditing,
             setIsEditing, 
             editingId,
-            setEditingId,
-            getRandomRecipe, 
+            setEditingId, 
             save,
             editRecipe
         }}>
