@@ -19,8 +19,8 @@ console.log(variable)
         <>
             {randomRecipe && randomRecipe.meals ? (
                 <div>
-                    <h2>{randomRecipe.meals[0].strMeal}</h2>
-                    <p>{randomRecipe.meals[0].strInstructions}</p>
+                    <h2 className="heading">{randomRecipe.meals[0].strMeal}</h2>
+                    <p className="body">{randomRecipe.meals[0].strInstructions}</p>
                 </div>
             ) : (
                 <p>No recipe found.</p>

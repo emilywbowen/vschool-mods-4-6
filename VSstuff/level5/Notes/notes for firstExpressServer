@@ -1,0 +1,35 @@
+First thing to do: run "npm init -y" in terminal
+Then, npm install <dependencies> , such as : express 
+Next, make sure the main file is called the same as the main file in package.json.
+    In this case, it's called "server.js"
+
+
+Nodemon:
+to install: npm install -g nodemon
+The -g means we're only installing globally
+
+
+arguments for "listen": 1: PORT 2: call-back function
+to run the server, type "nodemon (or node) server.js" into the terminal (server.js is whatever name you call it, like theCatCosmo.js could be a server.)
+
+Vocabulary:
+    Route: listens for requests specific to the endpoint
+        Similar to an event listener for http requests
+
+        argument 1 is the endpoint. "/"
+        argument 2 is a call back function (req, res)
+        app.get("/", (req (request), res (response)) => {
+        })
+
+        route types:
+        app.get()
+        app.put()
+        app.post()
+        app.delete()
+
+    Endpoint: Part of the URL
+        AKA - mount path
+        "/item" "/user"  
+
+    Port: Keep the port number above 3000 but below 9000 (any number between 3001 and 9000)
+        In the browser, you can type "localhost:9000/" to get to the server

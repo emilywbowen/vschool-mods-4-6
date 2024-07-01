@@ -1,0 +1,10 @@
+# Middleware - function that fires on the in-between before the response goes out.
+    express.json(): looks for a request body and turns it into a "req.body"
+    app.use("/", express.json()) (first argument is optional, so it can look like: app.use(express.json()))
+
+# Request Body - (req body): app.use
+
+# Express Router - Enables us to modularize our routes in express
+
+# Modular File Organization - different files are used for different tasks
+
