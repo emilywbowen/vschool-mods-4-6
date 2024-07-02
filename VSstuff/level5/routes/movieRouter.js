@@ -12,28 +12,50 @@ const movies = [
 ]
 
 // 1 way to write the syntax:
-// movieRouter.get("/", (req, res) => {
-//     res.send(movies)
-// })
 
-// movieRouter.post("/", (req, res) =>{
-//     const newMovie = req.body
-//     newMovie._id = uuidv4()
-//     movies.push(newMovie)
-//     res.send(`Successfully added ${newMovie.title} to the database!`)
-// })
-
-// another way to write the syntax:
-movieRouter.route("/")
-.get((req, res) => {
+// Get ALL
+movieRouter.get("/", (req, res) => {
     res.send(movies)
 })
-.post((req, res) =>{
+
+// Get One
+movieRouter.get("/:movieId" , (req, res) => {
+    const movieId = req.params.movieId
+    const foundMovie = movies.find(movie => movie._id === movieId)
+    res.send(foundMovie)
+})
+
+// Get by genre
+movieRouter.get("/search/genre", (req, res) => {
+    const genre = req.query.genre
+    const filteredMovies = movies.filter(movie => movie.genre === genre)
+    res.send(filteredMovies)
+})
+
+// Post One
+movieRouter.post("/", (req, res) =>{
     const newMovie = req.body
     newMovie._id = uuidv4()
     movies.push(newMovie)
     res.send(`Successfully added ${newMovie.title} to the database!`)
 })
+
+
+
+
+
+
+// another way to write the syntax:
+// movieRouter.route("/")
+// .get((req, res) => {
+//     res.send(movies)
+// })
+// .post((req, res) =>{
+//     const newMovie = req.body
+//     newMovie._id = uuidv4()
+//     movies.push(newMovie)
+//     res.send(`Successfully added ${newMovie.title} to the database!`)
+// })
 
 
 module.exports = movieRouter

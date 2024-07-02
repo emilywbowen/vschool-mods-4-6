@@ -1,0 +1,19 @@
+
+Lesson 13
+# URL parameters
+
+# Parts of a URL
+    * Base - http://amazon.com
+    * Endpoint - http://amazon.com/images
+    * Parameter - http://amazon.com/images/48jd938283f
+    * Query
+
+# Parameters (req.params) - GET One
+
+Lesson 14
+# URL Queries
+
+# Query string - (typically to filter results)
+    * Begins with the "?".
+    * Built of key=value pairs.
+    * Multiple queries separated by the "&"
