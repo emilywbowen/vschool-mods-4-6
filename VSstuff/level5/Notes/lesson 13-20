@@ -10,6 +10,13 @@ Lesson 13
 
 # Parameters (req.params) - GET One
 
+Example:
+<!-- movieRouter.get("/:movieId" , (req, res) => {
+    const movieId = req.params.movieId
+    const foundMovie = movies.find(movie => movie._id === movieId)
+    res.send(foundMovie)
+}) -->
+
 Lesson 14
 # URL Queries
 
@@ -17,3 +24,71 @@ Lesson 14
     * Begins with the "?".
     * Built of key=value pairs.
     * Multiple queries separated by the "&"
+
+Example:
+    <!-- movieRouter.get("/search/genre", (req, res) => {
+    const genre = req.query.genre
+    const filteredMovies = movies.filter(movie => movie.genre === genre)
+    res.send(filteredMovies)
+    }) -->
+
+Lesson 15
+# delete requests
+*Uses .splice
+
+Example: 
+    <!-- movieRouter.delete("/:movieId", (req, res) => {
+    const movieId = req.params.movieId
+    const movieIndex = movies.findIndex(movie => movie._id === movieId)
+    movies.splice(movieIndex, 1)
+    res.send("Successfully deleted movie :(") 
+    }) -->
+
+Lesson 16
+# Put Requests
+# Object.assign takes two objects and merges them together
+
+Example:
+<!-- movieRouter.put("/:movieId", (req, res) => {
+    const movieId = req.params.movieId
+    const movieIndex = movies.findIndex(movie => movie._id === movieId)
+    const updatedMovie = Object.assign(movies[movieIndex], req.body)
+    res.send(updatedMovie)
+}) -->
+
+Lesson 17
+# Middleware and Next
+
+# Middleware
+    * What is it?
+        app.use is a way we can build our own middleware.
+
+        app.use(2 arguements)
+            1. (optional) - mount path (endpoint)
+            2. Callback function - receives the request, response objects, also the "next" function
+
+    * The "next" function
+        - Moves on to the next middleware in line on our server.
+        - When using "next" as an argument, you must call next() in the code.
+Example:
+<!-- app.use("/food", (req, res, next) => {
+    console.log("The Middleware was executed")
+    next()
+})
+The above is correct.
+
+
+app.use("/food", (req, res, next) => {
+    req.body = {name: "Rick"}
+    })
+The above is incorrect. To make it correct:
+
+app.use("/food", (req, res, next) => {
+    req.body = {name: "Rick"}
+    next()
+    })
+
+app.get("/food", (req, res, next) => {
+    console.log("Get request received")
+    res.send("Yum yum yum!")
+}) -->
