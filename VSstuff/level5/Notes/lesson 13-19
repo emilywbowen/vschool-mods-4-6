@@ -92,3 +92,60 @@ app.get("/food", (req, res, next) => {
     console.log("Get request received")
     res.send("Yum yum yum!")
 }) -->
+
+Lesson 18: Install Morgan
+# Morgan gives real-time console logs without having to include them in the code. It shows up in the terminal.
+    What I got during the practice:
+        The server is running on PORT 9000.
+        DELETE /movies 404 2.498 ms - 148 (I forgot to change postman to get and it was still in delete.)
+        GET /movies 200 7.650 ms - 347
+
+# It must be installed per application.
+    In the terminal: npm install morgan
+
+# It is a Middleware
+This was inserted in the Middleware area.
+<!-- app.use(morgan("dev")) -->
+
+# Must import at the top:
+<!-- const morgan = require("morgan") -->
+
+Lesson 19: Connecting the front-end to back-end
+
+Two servers will be running simultaneously, so it is important to have two terminals with both files running.
+
+# Folder structure
+    Make sure you're in the correct folder that holds your current server files.
+        You'll end up with a "client" and "routes" folder along with server.js (or whatever the server.js file is named)
+    Make a vite folder by running npm create vite@latest.
+    Name the project "client"
+    
+
+# Proxy
+    In the client folder, go to the vite.config.js file. 
+    Change all the code in that file to, changing the host server number accordingly.
+
+<!-- import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:9000',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
+}); -->
+
+# vite front end -  any request to the backend will begin with “/api”   (from the vite.config file) see below example:
+
+axios.get("api/chores")
+
+# backend request routing using Vite - any request from the front end will use the “/api” endpoint for routing - see below example
+
+app.use("/api/chores", require("./routes/choresRouter.js"))

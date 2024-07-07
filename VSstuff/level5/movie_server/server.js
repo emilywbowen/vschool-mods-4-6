@@ -1,12 +1,14 @@
 const express = require("express")
 const app = express()
+const morgan = require("morgan")
 
 // middleware:
 app.use(express.json())
+app.use(morgan("dev"))
 
 // routes
-app.use("/movies", require("./routes/movieRouter.js"))
-app.use("/tvShows", require("./routes/tvshowRouter.js") )
+app.use("/api/movies", require("./routes/movieRouter.js"))
+app.use("/api/tvShows", require("./routes/tvshowRouter.js") )
 
 
 app.listen(9000, () => {
