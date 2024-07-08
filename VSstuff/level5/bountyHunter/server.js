@@ -1,11 +1,13 @@
 const express = require("express")
 const app = express()
+const morgan = require("morgan")
 
 // middleware:
 app.use(express.json())
+app.use(morgan("dev"))
 
 // routes
-app.use("/bounties", require("./routes/bountyRouter.js"))
+app.use("/api/bounties", require("./routes/bountyRouter.js"))
 
 
 app.listen(8000, () => {

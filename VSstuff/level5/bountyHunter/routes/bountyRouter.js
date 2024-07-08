@@ -21,22 +21,15 @@ bountyRouter.post("/", (req, res) => {
     const newBounty = req.body
     newBounty._id = uuidv4()
     bounties.push(newBounty)
-    res.send(`Successfully added ${newBounty.firstName} ${newBounty.lastName} to the database. Go get yer booty.`)
+    res.send(newBounty)
 })
 
-bountyRouter.delete("/:bountyId", async (req, res) =>{
-    // try{ const bountyId = req.params.bountyId
-    // const deletedBounty = await Bounty.findOneAndDelete({_id: bountyId});
-    // return res.status(200).send(`You have successfully deleted ${deletedBounty.firstName} ${deletedBounty.lastName}`)
-    // }catch(error){
-    //     res.status(500);
-    // }
-
+bountyRouter.delete("/:bountyId",(req, res) =>{
+    const bountyId = req.params.bountyId
     const bountyIndex = bounties.findIndex(bounty => bounty._id === bountyId)
     console.log(bountyIndex)
     bounties.splice(bountyIndex, 1)
-    // res.send(`Removal of ${bountyIndex.firstName} ${bountyIndex.lastName} was successful. I hope you were able to get dat booty.`)
-    res.send(`Removal of target was successful. I hope you were able to get dat booty.`)
+    res.send("Successfully deleted target.")
 })
 
 bountyRouter.put("/:bountyId", (req, res) => {

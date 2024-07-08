@@ -1,1 +1,12 @@
-Lesson 20: Get request in React
+Lesson 20-24
+# No notes, follow videos
+
+Lesson 25
+# Server status codes
+    # 200 - Successful request
+    # 201 - Successful insert (post)/successful update (put)
+    # 401 - unauthorized (user authentification)
+    # 404 - not found
+    # 500 - Server error
+
+# https://http.cat
