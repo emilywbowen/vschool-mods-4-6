@@ -1,19 +1,24 @@
 import React, { useState } from "react";
 
 export default function BountyForm(props) {
-    const initInputs ={firstName: props.firstName || "", lastName: props.lastName || "", living: props.living || "", bountyAmount: props.bountyAmount || "", type: props.type || ""}
+    const initInputs ={firstName: props.firstName || "", lastName: props.lastName || "", living: props.living || false, bountyAmount: props.bountyAmount || "", type: props.type || ""}
     const [inputs, setInputs] = useState(initInputs)
 
     function handleChange(e) {
-        const {name, value} = e.target
-        setInputs(prevInputs => ({...prevInputs, [name]: value}))
+        const {name, value,type,checked} = e.target
+        setInputs(prevInputs => ({
+            ...prevInputs,
+             [name]: type === "checkbox" ? checked : value
+        }))
     }
+    console.log(inputs)
 
     function handleSubmit(e){
         e.preventDefault()
         console.log(inputs)
         props.submit(inputs, props._id)
-        setInputs(initInputs)
+        !props.handleToggle && setInputs(initInputs)
+        props.handleToggle && props.handleToggle()
     }
 
 
@@ -30,24 +35,38 @@ export default function BountyForm(props) {
             value={inputs.lastName}
             onChange={handleChange}
             placeholder="Last Name"/>
-
-            <input type="text"
+            <label>
+            Is the target alive?
+            
+            <input
             name="living"
-            value={inputs.living}
+            checked={inputs.living}
+            type="checkbox"
             onChange={handleChange}
             placeholder="Living: Yes, no, or unknown"/>
-
+            </label>
             <input type="text"
             name="bountyAmount"
             value={inputs.bountyAmount}
             onChange={handleChange}
             placeholder="Reward Amount: "/>
 
-            <input type="text"
+            {/* <input type="text"
             name="type"
             value={inputs.type}
             onChange={handleChange}
-            placeholder="Sith, Jedi, or other (notate the other type)"/>
+            placeholder="Sith, Jedi, or other (notate the other type)"/> */}
+            <select
+                name="type"
+                value={inputs.type}
+                onChange={handleChange}
+                required
+            >
+                <option value ="">Affiliation?</option>
+                <option value="Jedi">Jedi</option>
+                <option value="Sith">Sith</option>
+                <option value="Unknown">Unknown</option>
+            </select>
 
             <button> { props.btnText } </button>
 
