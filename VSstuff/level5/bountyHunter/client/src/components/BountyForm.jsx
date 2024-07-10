@@ -28,12 +28,14 @@ export default function BountyForm(props) {
             name="firstName"
             value={inputs.firstName}
             onChange={handleChange}
+            required
             placeholder="First Name"/>
 
             <input type="text"  
             name="lastName"
             value={inputs.lastName}
             onChange={handleChange}
+            required
             placeholder="Last Name"/>
             <label>
             Is the target alive?
@@ -49,6 +51,7 @@ export default function BountyForm(props) {
             name="bountyAmount"
             value={inputs.bountyAmount}
             onChange={handleChange}
+            required
             placeholder="Reward Amount: "/>
 
             {/* <input type="text"

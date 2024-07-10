@@ -18,7 +18,7 @@ movieRouter.post("/", async(req, res, next) => {
     try {
         const newMovie = new Movie(req.body)
         const savedMovie = await newMovie.save()
-        return res.send(201).send(savedMovie)
+        return res.status(201).send(savedMovie)
     } catch (error) {
         res.status(500)
         return next(error)

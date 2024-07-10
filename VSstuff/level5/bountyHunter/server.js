@@ -11,6 +11,8 @@ const mongoose = require("mongoose")
 app.use(express.json())
 app.use(morgan("dev"))
 
+app.use("/api/bounties", require("./routes/bountyRouter.js"))
+
 // mongoDB connection
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 async function connectToDb(){
@@ -28,7 +30,7 @@ connectToDb()
 
 
 // routes
-app.use("/api/bounties", require("./routes/bountyRouter.js"))
+// app.use("/api/bounties", require("./routes/bountyRouter.js"))
 
 
 app.listen(8000, () => {
