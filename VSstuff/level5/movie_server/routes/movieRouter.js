@@ -65,6 +65,8 @@ movieRouter.get("/genre", async(req, res, next) => {
     }
 })
 
+module.exports = movieRouter
+
 // pre-mongoose coding:
 // const movies = [
 //     { title: "Die Hard", genre: "action", _id: uuidv4() },
@@ -149,4 +151,4 @@ movieRouter.get("/genre", async(req, res, next) => {
 // // })
 
 
-module.exports = movieRouter
+// module.exports = movieRouter
