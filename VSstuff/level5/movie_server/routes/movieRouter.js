@@ -65,6 +65,30 @@ movieRouter.get("/genre", async(req, res, next) => {
     }
 })
 
+// Connecting to directors schema:
+
+movieRouter.post("/movieWithDirector/:directorId", async(req, res, next) => {
+    try {
+        req.body.author = req.params.directorId
+        const newMovie = new Movie(req.body)
+        const savedMovie = await newMovie.save()
+        return res.status(201).send(savedMovie)
+    } catch (error) {
+        res.status(500)
+        return next(error)
+    }
+})
+
+movieRouter.get("/moviesByDirector/:directorId", async(req, res, next) => {
+    try {
+        const foundMovies = await Movie.find({author: req.params.directorId})
+        return res.status(200).send(foundMovies)
+    } catch (error) {
+        res.status(500)
+        return next(error)
+    }
+})
+
 module.exports = movieRouter
 
 // pre-mongoose coding:

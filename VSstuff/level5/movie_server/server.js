@@ -11,6 +11,7 @@ app.use(morgan("dev"))
 // routes
 app.use("/api/movies", require("./routes/movieRouter.js"))
 app.use("/api/tvShows", require("./routes/tvshowRouter.js") )
+app.use("/api/directors", require("./routes/directorRouter.js"))
 
 async function connectToDb(){
     try{
