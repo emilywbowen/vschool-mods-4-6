@@ -10,10 +10,27 @@ import SearchByCategory from "./components/SearchByCategory"
 import SearchByIngredient from './components/notInUse/SearchByIngredient';
 import NavBar from "./components/NavBar";
 import RecipeForm from './components/RecipeForm';
+import axios from 'axios';
+import SubmitRecipe from './components/notInUse/SubmitRecipe';
 
 
 export default function App(props) {
+  const [recipes, setRecipes] = useState([])
 
+    function getRecipes(){
+        axios.get("/api/recipes")
+        .then(res => setRecipes(res.data))
+        .catch(err => console.log(err.response.data.errMsg))
+    }
+    useEffect(() => {
+      getRecipes()
+  }, [])
+
+  function addRecipe(newRecipe){
+    axios.post('/api/recipes', newRecipe)
+    .then(res => setRecipes(prevRecipes => [...prevRecipes, res.data]))
+    .catch(err => console.log(err))
+  }
 
     return (
     <>
@@ -33,14 +50,18 @@ export default function App(props) {
      <Link to="/user" style={{padding: 5}}> 
      Profile
      </Link>
+     <Link to="/submitRecipe" style={{padding: 5}}> 
+     Submit a Recipe
+     </Link>
    </nav>
       
         <Routes>
           <Route path='/' element={<Home />}/>
           <Route path='/about' element={<About />}/>
-          <Route path="/allRecipes" element={<AllRecipes />}/>
-          <Route path='/searchByCategory' element={<SearchByCategory />}/>
+          <Route path="/allRecipes" element={<AllRecipes recipes={recipes}/>}/>
+          <Route path='/searchByCategory' element={<SearchByCategory recipes={recipes}/>}/>
           <Route path='/user' element={<UserProfile />}/>
+          <Route path= "/submitRecipe" element={<SubmitRecipe addRecipe={addRecipe}/>}/>
           {/* <Route path="/nav" element={<NavBar />}/> */}
           
         </Routes>

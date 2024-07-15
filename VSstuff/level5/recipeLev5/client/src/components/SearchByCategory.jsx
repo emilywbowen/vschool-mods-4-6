@@ -6,7 +6,7 @@ import Recipe from "./Recipe";
 import RecipeForm from "./RecipeForm";
 
 export default function SearchByCategory(props){
-    const [recipes, setRecipes] = useState([])
+    const {recipes} = props
 
     // function getRecipes(){
     //     axios.get("/api/recipes")
@@ -15,30 +15,37 @@ export default function SearchByCategory(props){
     // }
     // console.log(getRecipes)
 
-    function getByCategory(){
-        axios.get("api/recipes/category")
-        .then(res => setRecipes(res.data))
-        .catch(err => console.log(err))
-        }
+    // function getByCategory(){
+    //     axios.get("api/recipes/category")
+    //     .then(res => setRecipes(res.data))
+    //     .catch(err => console.log(err))
+    //     }
+
+    const [formData, setFormData] = useState({
+        category: ''
+    })
 
     function handleChange(e){
         const {name,type, value} = e.target
-        setRecipes(prevRecipes => ({...prevRecipes, [name]: type}))
+        setFormData(prev => {
+            return {
+                ...prev, 
+                [name]: value
+            }
+        })
         
     }
-    console.log(recipes)
+    
+    const [filteredRecipes, setFilteredRecipes] = useState([])
 
     function handleSubmit(e){
         e.preventDefault()
-        console.log(recipes)
-        // props.submit(recipes, props._id)
-        props.submit(recipes, props.category)
-        setRecipes(recipes)
+        setFilteredRecipes(recipes.filter(recipe => recipe.category === formData.category))
     }
 
-    useEffect(() => {
-        getByCategory()
-    },[])
+    // useEffect(() => {
+    //     getByCategory()
+    // },[])
    
 
 
@@ -47,7 +54,7 @@ return(
         <form onSubmit={handleSubmit}>
             <select
                 name="category"
-                value={recipes.category}
+                value={formData.category}
                 onChange={handleChange}
                 required>
                     <option value ="">Select a Category</option>
@@ -60,12 +67,13 @@ return(
                     <option value ="vegetarian">Vegetarian</option>
 
                 </select>
+                <button>Search</button>
         </form>
             
         <div>
-            { recipes.map(recipe =>
+            { filteredRecipes.map(recipe =>
                 <Recipe
-                {...recipes}
+                {...recipe}
                 key={recipes.category}/>)
                 
             }
