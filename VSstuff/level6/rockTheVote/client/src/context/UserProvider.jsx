@@ -12,13 +12,22 @@ userAxios.interceptors.request.use(config => {
 })
 
 export default function UserProvider(props){
+
     const initState = {
         user : JSON.parse(localStorage.getItem("user")) || {},
         token : localStorage.getItem("token") || "",
+        allIssues: [],
         issues: []
     }
 
+    // const initIssueState = {
+    //     user: props.user || "",
+    //     token: localStorage.getItem("token") || "",
+    //     issues: props.issues || ""
+    // }
+
     const [userState, setUserState] = useState(initState)
+    // const [issueState, setIssueState] = useState(initIssueState)
 
     async function signup(creds){
         try {
@@ -89,8 +98,53 @@ export default function UserProvider(props){
         }
     }
 
+    async function getAllIssues(){
+        try {
+            const res = await userAxios.get("/api/main/issues")
+            setUserState(prevState => {
+                return {
+                    ...prevState,
+                    issues: res.data
+                }
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async function addIssue(newIssue){
+        try {
+            const res = await userAxios.post("/api/main/issues", newIssue)
+            setUserState(prevState => {
+                return{
+                    ...prevState,
+                    issues: [...prevState.issues, res.data]
+                }
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async function deleteIssue(issueId) {
+        try {
+            const res = await userAxios.delete(`/api/main/issues/${issueId}`)
+            setUserState(prevState => prevState.filter(issue => issue._id !== issueId))}
+        catch (error) {
+            console.log(error)
+        }
+    }
+
     return(
-        <UserContext.Provider value = {{...userState, signup, login, logout, getUserIssues}}>
+        <UserContext.Provider value = {{
+            ...userState, 
+            signup, 
+            login, 
+            logout, 
+            getUserIssues,
+            addIssue,
+            getAllIssues,
+            deleteIssue}}>
             {props.children}
         </UserContext.Provider>
     )

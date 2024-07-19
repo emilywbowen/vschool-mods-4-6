@@ -1,7 +1,10 @@
+import { useContext } from "react"
 import Issue from "./Issue"
+import { UserContext } from "../context/UserProvider"
 
 
 export default function IssueList(props){
+    const {deleteIssue} = useContext(UserContext)
 
     const {issues} = props
 
