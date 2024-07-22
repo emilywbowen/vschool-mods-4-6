@@ -1,0 +1,151 @@
+
+Lesson 13
+# URL parameters
+
+# Parts of a URL
+    * Base - http://amazon.com
+    * Endpoint - http://amazon.com/images
+    * Parameter - http://amazon.com/images/48jd938283f
+    * Query
+
+# Parameters (req.params) - GET One
+
+Example:
+<!-- movieRouter.get("/:movieId" , (req, res) => {
+    const movieId = req.params.movieId
+    const foundMovie = movies.find(movie => movie._id === movieId)
+    res.send(foundMovie)
+}) -->
+
+Lesson 14
+# URL Queries
+
+# Query string - (typically to filter results)
+    * Begins with the "?".
+    * Built of key=value pairs.
+    * Multiple queries separated by the "&"
+
+Example:
+    <!-- movieRouter.get("/search/genre", (req, res) => {
+    const genre = req.query.genre
+    const filteredMovies = movies.filter(movie => movie.genre === genre)
+    res.send(filteredMovies)
+    }) -->
+
+Lesson 15
+# delete requests
+*Uses .splice
+
+Example: 
+    <!-- movieRouter.delete("/:movieId", (req, res) => {
+    const movieId = req.params.movieId
+    const movieIndex = movies.findIndex(movie => movie._id === movieId)
+    movies.splice(movieIndex, 1)
+    res.send("Successfully deleted movie :(") 
+    }) -->
+
+Lesson 16
+# Put Requests
+# Object.assign takes two objects and merges them together
+
+Example:
+<!-- movieRouter.put("/:movieId", (req, res) => {
+    const movieId = req.params.movieId
+    const movieIndex = movies.findIndex(movie => movie._id === movieId)
+    const updatedMovie = Object.assign(movies[movieIndex], req.body)
+    res.send(updatedMovie)
+}) -->
+
+Lesson 17
+# Middleware and Next
+
+# Middleware
+    * What is it?
+        app.use is a way we can build our own middleware.
+
+        app.use(2 arguements)
+            1. (optional) - mount path (endpoint)
+            2. Callback function - receives the request, response objects, also the "next" function
+
+    * The "next" function
+        - Moves on to the next middleware in line on our server.
+        - When using "next" as an argument, you must call next() in the code.
+Example:
+<!-- app.use("/food", (req, res, next) => {
+    console.log("The Middleware was executed")
+    next()
+})
+The above is correct.
+
+
+app.use("/food", (req, res, next) => {
+    req.body = {name: "Rick"}
+    })
+The above is incorrect. To make it correct:
+
+app.use("/food", (req, res, next) => {
+    req.body = {name: "Rick"}
+    next()
+    })
+
+app.get("/food", (req, res, next) => {
+    console.log("Get request received")
+    res.send("Yum yum yum!")
+}) -->
+
+Lesson 18: Install Morgan
+# Morgan gives real-time console logs without having to include them in the code. It shows up in the terminal.
+    What I got during the practice:
+        The server is running on PORT 9000.
+        DELETE /movies 404 2.498 ms - 148 (I forgot to change postman to get and it was still in delete.)
+        GET /movies 200 7.650 ms - 347
+
+# It must be installed per application.
+    In the terminal: npm install morgan
+
+# It is a Middleware
+This was inserted in the Middleware area.
+<!-- app.use(morgan("dev")) -->
+
+# Must import at the top:
+<!-- const morgan = require("morgan") -->
+
+Lesson 19: Connecting the front-end to back-end
+
+Two servers will be running simultaneously, so it is important to have two terminals with both files running.
+
+# Folder structure
+    Make sure you're in the correct folder that holds your current server files.
+        You'll end up with a "client" and "routes" folder along with server.js (or whatever the server.js file is named)
+    Make a vite folder by running npm create vite@latest.
+    Name the project "client"
+    
+
+# Proxy
+    In the client folder, go to the vite.config.js file. 
+    Change all the code in that file to, changing the host server number accordingly.
+
+<!-- import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:9000',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
+}); -->
+
+# vite front end -  any request to the backend will begin with “/api”   (from the vite.config file) see below example:
+
+axios.get("api/chores")
+
+# backend request routing using Vite - any request from the front end will use the “/api” endpoint for routing - see below example
+
+app.use("/api/chores", require("./routes/choresRouter.js"))

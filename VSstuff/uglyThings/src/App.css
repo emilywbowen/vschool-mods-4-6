@@ -1,0 +1,49 @@
+*{
+    background-color: darkgoldenrod;
+}
+
+.form {
+    background-color: darkcyan;
+    height: 100px;
+    align-items:center;
+}
+
+.form--button{
+    background-color: rgb(170, 54, 69);
+    color:aliceblue;
+    align-items: center;
+    font-size: larger;
+
+}
+
+.form--input{
+    background-color: blue;
+    color: aliceblue;
+    align-items: center;
+    font-size: larger;
+
+}
+
+.thing{
+    background-color: darkorchid;
+
+}
+
+.thing--textTitle {
+    background-color: chartreuse;
+}
+
+.thing--textDescription {
+    background-color: coral;
+}
+
+.thing--image {
+    /* background-color: deeppink; */
+    width: 15%;
+    height: 15%;
+}
+
+.edit {
+    background-color: rgb(129, 4, 4);
+    color: cadetblue;
+}

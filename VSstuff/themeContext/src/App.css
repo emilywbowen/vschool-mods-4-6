@@ -1,0 +1,20 @@
+div, button {
+  padding: 5px 10px;
+  margin: 5px 0px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+button {
+  border:cyan;
+  border-radius: 25%;
+}
+
+.light-theme {
+  background-color:darkgrey;
+  color:rgb(31, 48, 42);
+}
+
+.dark-theme {
+  background-color: rgb(31, 48, 42);
+  color:darkgray;
+}

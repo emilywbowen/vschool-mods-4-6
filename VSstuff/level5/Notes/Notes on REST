@@ -1,0 +1,26 @@
+Intro to REST API architecture
+
+# REST - Representational State Transfer
+    Want to craft our endpoints to represent our peices of state
+
+# Resource - Single Item (object) in a database.
+/user
+typically not used. typically going to be /users/id
+
+# Collection - Collection of similar items in a database.
+/users
+
+# Base (root) URL - Such as http://amazon.com
+
+# API endpoint - http://amazon.com/movies
+nouns are better than verbs
+
+# Parameters - /movies/:movieId
+
+# Query or query string - /movies?genre=action
+
+# Client - The front end
+
+# Server - Intermediary that receives the requests from the client
+
+# Request Method - CRUD: get, post, put, delete
