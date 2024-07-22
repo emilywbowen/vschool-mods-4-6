@@ -17,7 +17,8 @@ export default function UserProvider(props){
         user : JSON.parse(localStorage.getItem("user")) || {},
         token : localStorage.getItem("token") || "",
         allIssues: [],
-        issues: []
+        issues: [],
+        errMsg: ""
     }
 
     // const initIssueState = {
@@ -27,7 +28,7 @@ export default function UserProvider(props){
     // }
 
     const [userState, setUserState] = useState(initState)
-    // const [issueState, setIssueState] = useState(initIssueState)
+    const [issueState, setIssueState] = useState([])
 
     async function signup(creds){
         try {
@@ -44,8 +45,17 @@ export default function UserProvider(props){
             })
             console.log(res.data)
         } catch (error) {
-            console.log(error)
+            handleAuthErr(error.response.data.errMsg)
         }
+    }
+
+    function resetAuthErr(){
+        setUserState(prevUserState => {
+            return {
+                ...prevUserState,
+                errMsg: ""
+            }
+        })
     }
 
     async function login(creds) {
@@ -63,7 +73,7 @@ export default function UserProvider(props){
             })
             console.log(res.data)
         } catch (error) {
-            console.log(error)
+            handleAuthErr(error.response.data.errMsg)
         }
     }
 
@@ -84,6 +94,15 @@ export default function UserProvider(props){
         }
     }
 
+    function handleAuthErr(errMsg){
+        setUserState(prevUserState => {
+            return{
+                ...prevUserState,
+                errMsg
+            }
+        })
+    }
+
     async function getUserIssues(){
         try {
             const res = await userAxios.get("/api/main/issues/user")
@@ -101,12 +120,7 @@ export default function UserProvider(props){
     async function getAllIssues(){
         try {
             const res = await userAxios.get("/api/main/issues")
-            setUserState(prevState => {
-                return {
-                    ...prevState,
-                    issues: res.data
-                }
-            })
+            setIssueState(res.data)
         } catch (error) {
             console.log(error)
         }
@@ -129,11 +143,32 @@ export default function UserProvider(props){
     async function deleteIssue(issueId) {
         try {
             const res = await userAxios.delete(`/api/main/issues/${issueId}`)
-            setUserState(prevState => prevState.filter(issue => issue._id !== issueId))}
+            setUserState(prevState => ({
+                ...prevState,
+                issues: prevState.issues.filter(issue => issue._id !== issueId)
+            }))
+            setIssueState(prevIssueState => prevIssueState.filter(issue => issue._id !== issueId))
+        }
         catch (error) {
             console.log(error)
         }
     }
+
+    async function editIssue(update, issueId){
+        try {
+            const res = await userAxios.put(`/api/main/issues/${issueId}`, update)
+            setUserState(prevState => ({
+                ...prevState,
+                issues: prevState.issues.map(issue => issue._id !== issueId ? issue: res.data)
+            }))
+            setIssueState(prevIssueState => prevIssueState.map(issue => issue._id !== issueId ? issue: res.data))
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    console.log(userState.user)
 
     return(
         <UserContext.Provider value = {{
@@ -144,7 +179,12 @@ export default function UserProvider(props){
             getUserIssues,
             addIssue,
             getAllIssues,
-            deleteIssue}}>
+            deleteIssue,
+            issueState,
+            editIssue,
+            handleAuthErr,
+            resetAuthErr
+            }}>
             {props.children}
         </UserContext.Provider>
     )
