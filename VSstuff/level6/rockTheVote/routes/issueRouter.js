@@ -5,6 +5,7 @@ const issueRouter = express.Router()
 issueRouter.post("/", async (req, res, next) => 
 {
     try {
+        req.body.username = req.auth.username
         req.body.userId = req.auth._id
         const newIssue = new Issue(req.body)
         const savedIssue = await newIssue.save()

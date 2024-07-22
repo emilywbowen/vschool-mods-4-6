@@ -4,17 +4,17 @@ import IssueList from './IssueList';
 
 function Public() {
 
-    const {user, getAllIssues, issues} = useContext(UserContext)
+    const {user, getAllIssues, issueState} = useContext(UserContext)
 
     useEffect(() => {
         getAllIssues()
     }, [])
-    console.log(issues)
+  
 
     return ( 
         <>
         <h1> Hello {user.username}!</h1>
-        <IssueList issues = {issues} />
+        <IssueList issues = {issueState} />
         </>
      );
 }

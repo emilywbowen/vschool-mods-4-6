@@ -5,7 +5,7 @@ import IssueForm from './IssueForm';
 
 function Profile() {
 
-        const {user, getUserIssues, issues, deleteIssue } = useContext(UserContext)
+        const {user, getUserIssues, issues, addIssue } = useContext(UserContext)
 
         useEffect(() => {
             getUserIssues()
@@ -15,7 +15,7 @@ function Profile() {
     return ( 
         <>
         <h1> Hello {user.username}!</h1>
-        <IssueForm />
+        <IssueForm submit = {addIssue}/>
         <IssueList issues = {issues} />
         </>
      );
